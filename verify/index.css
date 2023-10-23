@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+  }
+  .container {
+    font-family: "SF UI Text";
+    padding: 0 5vw;
+    padding-bottom: 40px;
+  }
+  .logo {
+    text-align: center;
+  }
+  .login-form {
+    width: 90vw;
+    color: #0d1324;
+  }
+  .login-form input {
+    margin: 6px 0;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 4px;
+    padding: 0 14px;
+    background: none;
+  }
+  .form-example {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #7b90c921;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* 下拉按钮样式 */
+  .dropbtn {
+    color: #222222;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* 容器 <div> - 需要定位下拉内容 */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* 下拉内容 (默认隐藏) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    height: 200px;
+    overflow-y: auto;
+  }
+
+  /* 下拉菜单的链接 */
+  .dropdown-content a {
+    color: black;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* 鼠标移上去后修改下拉菜单链接颜色 */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* 在鼠标移上去后显示下拉菜单 */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* 当下拉内容显示后修改下拉按钮的背景颜色 */
+  .dropdown:hover .dropbtn {
+    background-color: #eee;
+  }
+
+  .countTheSeconds {
+    margin: 0 12px;
+  }
+  .form-example-button {
+    position: fixed;
+    bottom: 0;
+    width: 90vw;
+  }
+
+  .button {
+    width: 100%;
+    height: 49px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+    line-height: 49px;
+    font-size: 15px;
+    color: #ffffff;
+    background: rgb(80, 117, 255);
+    background: linear-gradient(
+      90deg,
+      rgba(80, 117, 255, 1) 0%,
+      rgba(149, 123, 255, 1) 100%
+    );
+  }
