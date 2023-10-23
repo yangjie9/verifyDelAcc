@@ -1,4 +1,3 @@
-
 window.onload = async function () {
   const apiUrl = "https://dev-bbci.bbim.io";
   const headers = new Headers();
@@ -18,26 +17,9 @@ window.onload = async function () {
       return res.json();
     }
   );
+  // countryCrownCode
   const items = response?.data?.items ?? [];
-  console.log("🚀 ~ file: deleteTheAccount.html:180 ~ res:", items);
 
-  const crownData = [
-    { country: "中国", code: "+86" },
-    { country: "美国", code: "+1" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-    { country: "日本", code: "+81" },
-  ];
   const crownCode = document.querySelector("#crownCode");
   const dropbtnText = crownCode.querySelector(".dropbtn");
   const dropdown = crownCode.querySelector(".dropdown-content");
@@ -52,10 +34,10 @@ window.onload = async function () {
   const dropdownList = crownCode
     .querySelector(".dropdown-content")
     .querySelectorAll("a");
-
+  let currentCrownCode = { name: "china", code: "86" };
   for (let i = 0; i < dropdownList.length; i++) {
     dropdownList[i].onclick = function () {
-      console.log("🚀 ~ file: deleteTheAccount.html:181 ~ i:", items[i]);
+      currentCrownCode = items[i];
       dropbtnText.innerHTML = "+" + items[i].code;
     };
   }
@@ -89,6 +71,35 @@ function submitForm() {
   //     }
   // }
   // deleteAccount();
+}
+
+//
+function startCountdown() {
+  
+  // 获取按钮元素
+  var btn = document.getElementById("send-verification-btn");
+
+  // 设置倒计时时间（单位：秒）s
+  var countdownTime = 10;
+
+  // 禁用按钮点击
+  btn.disabled = true;
+
+  // 更新按钮文本为倒计时时间
+  btn.innerHTML = countdownTime + " 秒";
+
+  // 每秒更新倒计时时间
+  var countdown = setInterval(function () {
+    countdownTime--;
+    btn.innerHTML = countdownTime + " 秒";
+
+    // 倒计时结束时恢复按钮状态
+    if (countdownTime <= 0) {
+      clearInterval(countdown);
+      btn.innerHTML = "发送验证码";
+      btn.disabled = false;
+    }
+  }, 1000);
 }
 
 function random(num = 16) {
