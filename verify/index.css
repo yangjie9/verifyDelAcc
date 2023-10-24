@@ -5,15 +5,21 @@ body {
     outline: none;
   }
   .container {
+    margin: auto;
     font-family: "SF UI Text";
     padding: 0 5vw;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
+    max-width: 768px;
   }
   .logo {
+    padding-top: 32px;
     text-align: center;
   }
+  .logo h2{
+    margin-top: 5px;
+  }
   .login-form {
-    width: 90vw;
+    width: 100%;
     color: #0d1324;
   }
   .login-form input {
@@ -96,7 +102,8 @@ body {
   .form-example-button {
     position: fixed;
     bottom: 0;
-    width: 90vw;
+    max-width: 768px;
+    width: 90%;
   }
 
   .button {
@@ -114,4 +121,32 @@ body {
       rgba(80, 117, 255, 1) 0%,
       rgba(149, 123, 255, 1) 100%
     );
+  }
+
+  .prompt h2{
+    font-size: 18px;
+    margin: 8px 0;
+  }
+  .prompt p{
+    margin: 0;
+    margin-bottom: 24px;
+    color: #666;
+  }
+
+  .step{
+    background: #F7F8F9;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  .step>ul{
+    padding-left: 18px;
+  }
+
+  .step h3{
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  .step p{
+    color: #999;
+    margin: 0;
   }

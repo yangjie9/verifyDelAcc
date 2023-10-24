@@ -5,12 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Account Cancellation</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.1.1/aes.min.js"></script>
-   <link rel="stylesheet" href="./index.css">
+   <!-- <link rel="stylesheet" href="./index.css"> -->
+   <style>
+    body {
+    margin: 0;
+  }
+  input:focus {
+    outline: none;
+  }
+  .container {
+    margin: auto;
+    font-family: "SF UI Text";
+    padding: 0 5vw;
+    padding-bottom: 60px;
+    max-width: 768px;
+  }
+  .logo {
+    padding-top: 32px;
+    text-align: center;
+  }
+  .logo h2{
+    margin-top: 5px;
+  }
+  .login-form {
+    width: 100%;
+    color: #0d1324;
+  }
+  .login-form input {
+    flex: 1;
+    margin: 6px 0;
+    /* width: 100%; */
+    height: 36px;
+    border: none;
+    border-radius: 4px;
+    padding: 0 14px;
+    background: none;
+  }
+  .form-example {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #7b90c921;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  /* 下拉按钮样式 */
+  .dropbtn {
+    color: #222222;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* 容器 <div> - 需要定位下拉内容 */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* 下拉内容 (默认隐藏) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    height: 200px;
+    overflow-y: auto;
+  }
+
+  /* 下拉菜单的链接 */
+  .dropdown-content a {
+    color: black;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+
+  /* 鼠标移上去后修改下拉菜单链接颜色 */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* 在鼠标移上去后显示下拉菜单 */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* 当下拉内容显示后修改下拉按钮的背景颜色 */
+  .dropdown:hover .dropbtn {
+    background-color: #eee;
+  }
+
+  .countTheSeconds {
+    display: inline-block;
+    line-height: 40px;
+    margin-right: 12px;
+    white-space:nowrap;
+    border: none;
+    background: none;
+  }
+  .form-example-button {
+    position: fixed;
+    bottom: 0;
+    max-width: 768px;
+    width: 90%;
+  }
+
+  .button {
+    width: 100%;
+    height: 49px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+    line-height: 49px;
+    font-size: 15px;
+    color: #ffffff;
+    background: rgb(80, 117, 255);
+    background: linear-gradient(
+      90deg,
+      rgba(80, 117, 255, 1) 0%,
+      rgba(149, 123, 255, 1) 100%
+    );
+  }
+
+  .prompt h2{
+    font-size: 18px;
+    margin: 8px 0;
+  }
+  .prompt p{
+    margin: 0;
+    margin-bottom: 24px;
+    color: #666;
+  }
+
+  .step{
+    background: #F7F8F9;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  .step>ul{
+    padding-left: 18px;
+  }
+
+  .step h3{
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  .step p{
+    color: #999;
+    margin: 0;
+  }
+   </style>
   </head>
   <body>
     <div class="container">
       <div class="logo">
-        <img src="" alt="BBChat" width="100" height="100" />
+        <img src="data:image/png;base64,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" alt="BBChat" width="76" height="76" />
         <h2>BBChat</h2>
       </div>
       <div class="login-form">
@@ -24,8 +178,8 @@
             <input
               placeholder="Enter phone number"
               type="number"
-              name="name"
-              id="name"
+              name="phone"
+              id="phone"
               required
             />
           </div>
@@ -57,8 +211,8 @@
                 ></path>
               </g>
             </svg>
-            <input type="number" name="verifyCode" id="verifyCode" required />
-            <button class="countTheSeconds" id="send-verification-btn" onclick="startCountdown()">发送验证码</button>
+            <input type="number" name="captcha" id="captcha" maxlength="6" minlength="6" required />
+            <button class="countTheSeconds" id="send-verification-btn">发送验证码</button>
             <!-- <span class="countTheSeconds">56s</span> -->
           </div>
           <div class="form-example-button">
@@ -103,6 +257,197 @@
         </ul>
       </div>
     </div>
-  <script src="./index.js"></script>
+  <script>
+// 判断对象属性是否都有值
+function checkObjectProperties(obj) {
+  return Object.values(obj).every(value => {
+    return value !== null && value !== undefined && value !== '';
+  });
+}
+
+function random(num = 16) {
+  const amm = [
+    "!",
+    "@",
+    "#",
+    "$",
+    "%",
+    "&",
+    "*",
+    "(",
+    ")",
+    "_",
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+  ];
+  let tmp = Math.floor(Math.random() * num);
+  let s = tmp;
+  s = s + amm[tmp];
+  for (let i = 0; i < 7; i++) {
+    tmp = Math.floor(Math.random() * 26);
+    s = s + String.fromCharCode(65 + tmp);
+  }
+  for (let i = 0; i < 7; i++) {
+    tmp = Math.floor(Math.random() * 26);
+    s = s + String.fromCharCode(97 + tmp);
+  }
+  return s;
+}
+async function sha1Code(data) {
+  try {
+    const encoder = new TextEncoder();
+    const dataArray = encoder.encode(data);
+
+    const hashBuffer = await crypto.subtle.digest("SHA-1", dataArray);
+
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+
+    return hashHex;
+  } catch (error) {
+    console.error(error);
+    throw new Error("SHA-1 hashing failed");
+  }
+}
+
+window.onload = async function () {
+  let country = { name: "china", code: "86" };
+
+  const apiUrl = "https://bbci.bbim.io";
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("version", "0.0.1");
+  headers.append("os", "win");
+  headers.append("over", 0);
+  headers.append("lang", "en");
+
+  function requestApi(url, data) {
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify(data),
+    };
+    return fetch(`${apiUrl}${url}`, options).then((res) => res.json());
+  }
+  const response = await requestApi("/phonePrefixList", { ver: 0 });
+  const items = response?.data?.items ?? [];
+
+  const crownCode = document.querySelector("#crownCode");
+  const dropbtnText = crownCode.querySelector(".dropbtn");
+  const dropdown = crownCode.querySelector(".dropdown-content");
+
+  // 动态添加 dropdownList的a
+  items.forEach(function (item, index) {
+    const childElement = document.createElement("a");
+    childElement.innerHTML = `${item.name} +${item.code}`;
+    dropdown.appendChild(childElement);
+  });
+
+  const dropdownList = crownCode
+    .querySelector(".dropdown-content")
+    .querySelectorAll("a");
+  for (let i = 0; i < dropdownList.length; i++) {
+    dropdownList[i].onclick = function () {
+      country = items[i];
+      dropbtnText.innerHTML = "+" + items[i].code;
+    };
+  }
+
+  const formContainer = document.querySelector(".form-example-box");
+  const submitBtn = document.querySelector("#submitBtn");
+  submitBtn.addEventListener("click", submitForm);
+  //  提交删除
+  async function submitForm(e) {
+    e.preventDefault();
+    const formData = new FormData(formContainer);
+    const formDataObj = Object.fromEntries(formData);
+    if(checkObjectProperties(formDataObj) && formDataObj.captcha.length === 6){
+      if (window.confirm('Please confirm  to continue deleting?')) {
+        // 用户点击了确认按钮
+        // 在这里执行打开天窗的操作
+        const deleteAccountData = await requestApi("/deleteAccount", {prefix:country.code,...formDataObj});
+           if (deleteAccountData.data.err_code === 0) {
+            alert('operation successful！')
+            window.location.href = '';
+          }else{
+            alert(deleteAccountData.data.err_msg)
+          }
+      } else {
+        // 用户点击了取消按钮或关闭了对话框
+        // 在这里执行取消操作
+      }
+      
+    }else{
+      alert('information filled in error！')
+    }
+
+  }
+
+  // 发送验证码
+  var verifyBtn = document.getElementById("send-verification-btn");
+
+  async function startCountdown(event) {
+    event.preventDefault();
+    const phone = formContainer.phone.value;
+    if (!phone.length) {
+      alert("Please fill in the mobile phone number");
+      return;
+    }
+
+    const SEND_CAPTCHA_KET = "@#t*$m&%)m48sms0";
+    const currentTime = new Date().getTime();
+    const randomStr = random();
+    const _p = country.code + phone + "3" + randomStr + currentTime;
+    const s = await sha1Code(_p + SEND_CAPTCHA_KET);
+    const _s = await sha1Code(s + SEND_CAPTCHA_KET);
+    // sendCaptcha
+    const resCapt = await requestApi("/sendCaptcha", {
+      prefix: country.code,
+      phone,
+      act: 3,
+      rs: randomStr,
+      t: currentTime,
+      s: _s,
+    });
+
+    // 获取按钮元素
+
+    // 设置倒计时时间（单位：秒）s
+    var countdownTime = 60;
+
+    // 禁用按钮点击
+    verifyBtn.disabled = true;
+
+    // 更新按钮文本为倒计时时间
+    verifyBtn.innerHTML = countdownTime + " 秒";
+
+    // 每秒更新倒计时时间
+    var countdown = setInterval(function () {
+      countdownTime--;
+      verifyBtn.innerHTML = countdownTime + " 秒";
+
+      // 倒计时结束时恢复按钮状态
+      if (countdownTime <= 0) {
+        clearInterval(countdown);
+        verifyBtn.innerHTML = "发送验证码";
+        verifyBtn.disabled = false;
+      }
+    }, 1000);
+  }
+  verifyBtn.addEventListener("click", startCountdown);
+
+};
+
+
+  </script>
   </body>
 </html>
